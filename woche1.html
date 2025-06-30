@@ -63,7 +63,7 @@
       <h2>Supernetting</h2>
       <p>Supernetting (Routenaggregation) fasst mehrere Netzwerke zu einem größeren Block zusammen. Ziel: Routing vereinfachen.</p>
       <ul>
-        <li>Beispielmaske: <code>255.254.0.0</code> (16 Bit Netzanteil)</li>
+        <li>Beispielmaske: <code>255.255.0.0</code> (16 Bit Netzanteil)</li>
         <li>Adressbereich: <code>172.16.0.1 – 172.17.255.255</code></li>
       </ul>
     </section>
@@ -80,6 +80,24 @@
           </ul>
         </li>
         <li><strong>Moderne Netzwerke:</strong> Verwenden meist Switches & Access Points – Hubs/Bridges selten, meist nur in alten Netzen.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Windows-Installation & Dualboot mit Ubuntu</h2>
+      <ul>
+        <li>Desktop-PC per USB-Stick mit Windows 11 gestartet</li>
+        <li>Über <strong>ESC</strong> und <strong>F9</strong> Bootmenü geöffnet</li>
+        <li><strong>USB-Stick</strong> als Boot-Gerät gewählt</li>
+        <li>Windows 11-Setup gestartet</li>
+        <li>Tastatur-Layout: Schweiz (Deutsch)</li>
+        <li>Partition 0 mit vorhandenem Windows gelöscht</li>
+        <li>Neue Partition mit <strong>102400 MB</strong> erstellt (~100 GB)</li>
+        <li>Windows auf der 100GB-Partition installiert</li>
+        <li>Benutzername & Passwort frei wählbar</li>
+        <li>Sicherheitseinstellungen auf „Nur erforderliche Daten“ gesetzt</li>
+        <li>Nach Abschluss: Windows gestartet & Bitlocker deaktiviert</li>
+        <li>Anschließend: <strong>Ubuntu Desktop</strong> installiert</li>
       </ul>
     </section>
 
