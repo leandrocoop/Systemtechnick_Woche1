@@ -1,0 +1,203 @@
+/* Grundstruktur und Theme */
+body {
+  margin: 0;
+  font-family: 'Fira Code', monospace, sans-serif;
+  background: linear-gradient(135deg, #0a192f, #1c2331);
+  color: #e0f2f1;
+  line-height: 1.7;
+  animation: fadeInBody 1s ease-in;
+}
+
+a {
+  color: #80ffea;
+}
+
+header {
+  background: #102030;
+  padding: 50px 20px 40px;
+  text-align: center;
+  border-bottom: 2px solid #33ff99;
+  box-shadow: 0 0 15px rgba(51, 255, 153, 0.2);
+}
+
+header h1 {
+  font-size: 2.8em;
+  color: #33ff99;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.subtitle {
+  color: #9fc6e7;
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+/* Hauptinhalt */
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #33ff99;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 0 15px rgba(51, 255, 153, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.8s ease;
+}
+
+section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(51, 255, 153, 0.2);
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(#33ff99 10%, transparent 60%);
+  opacity: 0.06;
+  transform: rotate(45deg);
+}
+
+section h2 {
+  color: #80ffea;
+  font-size: 1.8em;
+  margin-top: 0;
+  border-bottom: 1px dashed #33ff99;
+  padding-bottom: 10px;
+}
+
+section h3 {
+  color: #9ee5ff;
+  font-size: 1.2em;
+  margin-top: 30px;
+}
+
+ul {
+  padding-left: 25px;
+}
+
+ul li {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+strong {
+  color: #fff;
+}
+
+/* Code-Stil – wie ein Terminal */
+code {
+  background-color: #0d1117;
+  color: #33ff99;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
+  box-shadow: inset 0 0 4px rgba(0,255,128,0.1);
+  font-size: 0.95em;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 0.9em;
+  background-color: #0c1c2b;
+  color: #78909c;
+  border-top: 1px solid #1de9b6;
+  margin-top: 40px;
+}
+
+/* Animationen */
+@keyframes fadeInBody {
+  from { opacity: 0; background-color: #000; }
+  to { opacity: 1; background-color: #0a192f; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2em;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  section {
+    padding: 20px;
+  }
+}
+
+.topnav {
+  background-color: #0b0f1a;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #1de9b6;
+  box-shadow: 0 2px 5px rgba(0, 255, 170, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.topnav ul {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.topnav ul li a {
+  color: #e0f2f1;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 8px 0;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.topnav ul li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background-color: #33ff99;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+  transform-origin: left;
+}
+
+.topnav ul li a:hover::after {
+  transform: scaleX(1);
+}
+
+.topnav ul li a:hover {
+  color: #33ff99;
+}
