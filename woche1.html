@@ -1,61 +1,92 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Systemtechnik – Woche 1</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Woche 1 – Systemtechnik</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <header>
-    <h1>Systemtechnik – Woche 1</h1>
-    <p class="subtitle">Zusammenfassung der ersten Unterrichtswoche</p>
-    <nav class="topnav">
-      <ul>
-        <li><a href="index.html">Startseite</a></li>
-        <li><a href="#">Woche 2</a></li>
-        <li><a href="#">Woche 3</a></li>
-        <li><a href="#">Woche 4</a></li>
-        <li><a href="#">Woche 5</a></li>
-      </ul>
-    </nav>
+  <nav class="topnav">
+    <ul>
+      <li><a href="index.html">Start</a></li>
+      <li><a href="woche1.html">Woche 1</a></li>
+      <li><a href="#">Woche 2</a></li>
+      <li><a href="#">Woche 3</a></li>
+      <li><a href="#">Woche 4</a></li>
+      <li><a href="#">Woche 5</a></li>
+    </ul>
+  </nav>
+
+  <header class="apple-header">
+    <h1>Woche 1 – Netzwerkkomponenten & IP-Adressierung</h1>
+    <p class="subtitle">Systemtechnik – Tag 1</p>
   </header>
 
-  <main>
+  <main class="apple-main">
 
     <section>
-      <h2>Tag 1: Netzwerkkomponenten</h2>
-      <p>In der ersten Lerneinheit wurden zentrale Geräte zur Datenübertragung im Netzwerk behandelt. Fokus lag auf Funktion, Einsatzbereich und OSI-Modell.</p>
+      <h2>Netzwerkkomponenten</h2>
+      <p>Wir haben folgende Geräte und deren Funktionen im Netzwerk kennengelernt:</p>
       <ul>
-        <li><strong>Switch:</strong> Vermittelt Datenpakete gezielt an den vorgesehenen Empfänger. Arbeitet auf OSI-Schicht 2 (Data Link Layer).</li>
-        <li><strong>Hub:</strong> Verteilt Daten an alle Geräte im Netzwerk, ohne die Zieladresse zu berücksichtigen. Veraltet und ineffizient.</li>
-        <li><strong>Bridge:</strong> Trennt Netzsegmente und filtert den Datenverkehr zur Lastverteilung.</li>
-        <li><strong>Access Point:</strong> Ermöglicht drahtlose Verbindung (WLAN) zu einem kabelgebundenen Netzwerk.</li>
-        <li><strong>Server:</strong> Bietet zentrale Dienste wie Dateiablage, Druckdienste oder Webhosting an.</li>
+        <li><strong>Switch:</strong> Intelligentes LAN-Gerät, arbeitet auf OSI-Schicht 2. Leitet Daten gezielt per MAC-Adresse weiter.</li>
+        <li><strong>Hub:</strong> Einfaches Verteilgerät (Schicht 1), sendet alle Daten an alle Geräte – ineffizient und veraltet.</li>
+        <li><strong>Bridge:</strong> Verbindet Netzsegmente und filtert Datenverkehr. Arbeitet auf Schicht 2.</li>
+        <li><strong>Access Point:</strong> Ermöglicht WLAN-Zugriff auf ein LAN. Verbindet mobile Geräte wie Smartphones oder Tablets mit dem kabelgebundenen Netz.</li>
+        <li><strong>Server:</strong> Zentrale Systeme für Dienste wie Dateiablage, Webhosting oder Datenbanken. Meist 24/7 in Betrieb.</li>
       </ul>
     </section>
 
     <section>
-      <h2>IP-Adressen – Grundlagen IPv4</h2>
+      <h2>IPv4-Adressen</h2>
+      <p>Aufbau einer IP-Adresse:</p>
       <ul>
-        <li><strong>Beispiel:</strong> <code>192.168.10.0</code></li>
-        <li><strong>Gesamtgröße:</strong> 32 Bit (4 × 8 Bit)</li>
+        <li>IPv4 = vier Oktette (z. B. <code>192.168.10.0</code>)</li>
+        <li>Jedes Oktett = 8 Bit → Wertebereich: 0–255</li>
+        <li>Gesamtlänge: 32 Bit (4 × 8)</li>
+        <li>Darstellung: Dezimalform, durch Punkte getrennt</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Netzklassen & Beispiele</h2>
+      <ul>
+        <li><strong>Class C:</strong> <code>192.168.10.0/24</code> – Netzmaske: <code>255.255.255.0</code></li>
+        <li><strong>Class B:</strong> <code>172.16.0.0/16</code> bis <code>172.31.0.0/16</code> – Netzmaske: <code>255.255.0.0</code></li>
+        <li><strong>Class A:</strong> <code>10.0.0.0/8</code> – Netzmaske: <code>255.0.0.0</code></li>
       </ul>
 
-      <h3>Netzklassen & Beispiele:</h3>
-      <ul>
-        <li><strong>Class A:</strong> <code>10.0.0.0/8</code> → Bereich: <code>10.0.0.0 – 10.255.255.255</code></li>
-        <li><strong>Class B:</strong> <code>172.16.0.0/12</code> → Bereich: <code>172.16.0.0 – 172.31.255.255</code></li>
-        <li><strong>Class C:</strong> <code>192.168.10.0/24</code> → typisch für Heimnetzwerke</li>
-      </ul>
+      <p><strong>Beispiel B-Netz:</strong> <code>172.16.0.1 – 172.16.255.255</code></p>
+    </section>
 
-      <p><strong>Beispiel-Adressen (Class B):</strong> <code>172.16.0.1 – 172.16.255.255</code></p>
+    <section>
+      <h2>Supernetting</h2>
+      <p>Supernetting (Routenaggregation) fasst mehrere Netzwerke zu einem größeren Block zusammen. Ziel: Routing vereinfachen.</p>
+      <ul>
+        <li>Beispielmaske: <code>255.254.0.0</code> (16 Bit Netzanteil)</li>
+        <li>Adressbereich: <code>172.16.0.1 – 172.17.255.255</code></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Wichtige Hinweise</h2>
+      <ul>
+        <li><strong>Netzmaske:</strong> Definiert, welcher Teil der IP-Adresse Netzanteil und welcher Hostanteil ist. Beispiel: <code>255.255.255.0</code> → 24 Bit Netz / 8 Bit Host</li>
+        <li><strong>Private IP-Bereiche:</strong> Nicht öffentlich geroutet:
+          <ul>
+            <li><code>10.0.0.0/8</code></li>
+            <li><code>172.16.0.0/12</code></li>
+            <li><code>192.168.0.0/16</code></li>
+          </ul>
+        </li>
+        <li><strong>Moderne Netzwerke:</strong> Verwenden meist Switches & Access Points – Hubs/Bridges selten, meist nur in alten Netzen.</li>
+      </ul>
     </section>
 
   </main>
 
   <footer>
-    <p>Erstellt im Rahmen des Unterrichtsmoduls Systemtechnik | Woche 1</p>
+    <p>© 2025 – Systemtechnik Woche 1</p>
   </footer>
 
 </body>
