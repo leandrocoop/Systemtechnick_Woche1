@@ -243,3 +243,82 @@ footer {
   color: #33ff99;
   box-shadow: 0 0 10px rgba(51, 255, 153, 0.3);
 }
+
+@media (max-width: 1024px) {
+  header h1 {
+    font-size: 2.4em;
+  }
+
+  .topnav ul {
+    gap: 30px;
+  }
+
+  .subnav-buttons ul {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2em;
+  }
+
+  .topnav {
+    padding: 10px 15px;
+  }
+
+  .topnav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .subnav-buttons {
+    flex-direction: column;
+    padding: 10px 0;
+  }
+
+  .subnav-buttons ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .subnav-buttons ul li a {
+    width: 100%;
+    text-align: center;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  section {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.6em;
+  }
+
+  .subtitle {
+    font-size: 1em;
+  }
+
+  .topnav ul li a {
+    font-size: 0.9rem;
+  }
+
+  section h2 {
+    font-size: 1.5em;
+  }
+
+  section h3 {
+    font-size: 1em;
+  }
+
+  code {
+    font-size: 0.85em;
+  }
+}
