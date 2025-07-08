@@ -28,8 +28,8 @@
                 <li><a href="#" data-target="nas" class="active">NAS</a></li>
                 <li><a href="#" data-target="proxmox">Proxmox</a></li>
                 <li><a href="#" data-target="raids">Raidtypen</a></li>
-                <li><a href="#" data-target="liste">Liste</a></li>
                 <li><a href="#" data-target="uptimekuma">Uptime Kuma</a></li>
+                <li><a href="#" data-target="liste">Liste</a></li>
             </ul>
         </nav>
 
@@ -166,11 +166,84 @@
             <section>
                 <h3> DNS/DHCP</h3>
                 <ul>
+                    <li>Name: DHCP</li>
+                    <li>CPU: 2 Sockel, 2 Kerne</li>
+                    <li>RAM: 4096 MB (4 GB)</li>
+                    <li>ISO: Windows Server ISO</li>
+                    <li>Festplatte: 40 GB</li>
                     <li>Username: Administrator</li>
                     <li>Passwort: Pas$4567></li>
                 </ul>
             </section>
         </div>
+
+        <div id="raids" class="content-group" style="display: none;">
+            <section>
+                <h2>RAID – Grundlagen und Typen</h2>
+
+                <h3>Software vs. Hardware RAID</h3>
+                <ul>
+                    <li><strong>Hardware-RAID:</strong> RAID wird über einen dedizierten RAID-Controller verwaltet.
+                        Schneller, stabiler, aber teurer.</li>
+                    <li><strong>Software-RAID:</strong> RAID wird über das Betriebssystem gesteuert. Günstiger, reicht
+                        für Heimgebrauch oder Testsysteme.</li>
+                </ul>
+
+                <h3>RAID 0 – Striping</h3>
+                <ul>
+                    <li><strong>Mindestanzahl:</strong> 2 Festplatten</li>
+                    <li><strong>Funktionsweise:</strong> Daten werden blockweise abwechselnd auf beide Platten verteilt.
+                    </li>
+                    <li><strong>Vorteil:</strong> Sehr schnell, da gleichzeitig gelesen und geschrieben wird.</li>
+                    <li><strong>Nachteil:</strong> Keine Redundanz – fällt eine Platte aus, sind alle Daten verloren.
+                    </li>
+                </ul>
+
+                <h3>RAID 1 – Mirroring</h3>
+                <ul>
+                    <li><strong>Mindestanzahl:</strong> 2 Festplatten</li>
+                    <li><strong>Funktionsweise:</strong> Alle Daten werden 1:1 auf beiden Festplatten gespeichert.</li>
+                    <li><strong>Kapazität:</strong> Nur eine Platte nutzbar (z. B. 2×3 TB → nur 3 TB verfügbar).</li>
+                    <li><strong>Vorteil:</strong> Hohe Ausfallsicherheit, da alle Daten gespiegelt sind.</li>
+                    <li><strong>Nachteil:</strong> Nur 50 % Speicherausnutzung.</li>
+                </ul>
+
+                <h3>RAID 5 – Parity Striping</h3>
+                <ul>
+                    <li><strong>Mindestanzahl:</strong> 3 Festplatten</li>
+                    <li><strong>Funktionsweise:</strong> Daten + Paritätsinformationen werden verteilt auf alle
+                        Festplatten geschrieben.</li>
+                    <li><strong>Kapazität:</strong> (Anzahl Platten – 1) × Festplattengrösse → z. B. 3×3 TB = 6 TB
+                        nutzbar.</li>
+                    <li><strong>Vorteil:</strong> Redundanz bei 1 Plattenausfall, gute Speichereffizienz.</li>
+                    <li><strong>Nachteil:</strong> Schreibgeschwindigkeit langsamer wegen Paritätsberechnung.</li>
+                </ul>
+
+                <h3>RAID 6 – doppelte Parität</h3>
+                <ul>
+                    <li><strong>Mindestanzahl:</strong> 4 Festplatten</li>
+                    <li><strong>Funktionsweise:</strong> Wie RAID 5, aber mit zwei Paritätsblöcken.</li>
+                    <li><strong>Vorteil:</strong> Zwei Festplatten dürfen gleichzeitig ausfallen, ohne Datenverlust.
+                    </li>
+                    <li><strong>Nachteil:</strong> Weniger nutzbarer Speicherplatz und noch langsamere
+                        Schreibgeschwindigkeit.</li>
+                </ul>
+
+                <h3>SHR – Synology Hybrid RAID</h3>
+                <ul>
+                    <li><strong>Herstellerspezifisch:</strong> Nur bei Synology NAS verfügbar.</li>
+                    <li><strong>Vorteil:</strong>
+                        <ul>
+                            <li>Einfach zu erweitern (auch mit unterschiedlich grossen Festplatten).</li>
+                            <li>Automatische Verwaltung von Redundanz (ähnlich RAID 1 oder 5).</li>
+                            <li>Ideal für Heimanwender, Testsysteme oder wenn Platten unterschiedlich gross sind.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </div>
+
+
 
 
         <div id="liste" class="content-group" style="display: none;">
