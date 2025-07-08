@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Woche 2 – Systemtechnik</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <nav class="topnav">
+        <ul>
+            <li><a href="index.html">Start</a></li>
+            <li><a href="woche1.html">Woche 1</a></li>
+            <li><a href="woche2.html">Woche 2</a></li>
+            <li><a href="#">Woche 3</a></li>
+            <li><a href="#">Woche 4</a></li>
+            <li><a href="#">Woche 5</a></li>
+        </ul>
+    </nav>
+
+    <header class="apple-header">
+        <h1>Woche 2 – How to Nas</h1>
+        <p class="subtitle">Systemtechnik – Tag 2</p>
+        <nav class="subnav-buttons">
+            <ul>
+                <li><a href="#" data-target="nas" class="active">NAS</a></li>
+                <li><a href="#" data-target="proxmox">Proxmox</a></li>
+                <li><a href="#" data-target="raids">Raidtypen</a></li>
+                <li><a href="#" data-target="liste">Liste</a></li>
+                <li><a href="#" data-target="uptimekuma">Uptime Kuma</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main class="apple-main">
+
+        <div id="nas" class="content-group">
+            <section id="Nas">
+                <h2>How to Nas (Synology)</h2>
+                <h3><strong>1. Aufbau und Verkabelung</strong></h3>
+                <ul>
+                    <li>NAS auspacken und Festplatten einsetzen (falls noch nicht passiert)</li>
+                    <li>Power-Stecker einstecken</li>
+                    <li>LAN-Kabel mit dem Switch oder Router verbinden</li>
+                    <li>NAS einschalten</li>
+                </ul>
+            </section>
+            <section id="Nas">
+                <h3><strong>2. Reset und Suche</strong></h3>
+                <ul>
+                    <li>Reset-Knopf hinten für ca. 4 Sekunden drücken (Soft-Reset) </li>
+                    <li>Am PC im Browser <a href="http://find.synology.com">http://find.synology.com</a> aufrufen </li>
+                    <li>NAS per MAC-Adresse identifizieren, um sicherzustellen, dass es das richtige Gerät ist </li>
+                </ul>
+            </section>
+            <section id="Nas">
+                <h3><strong>3. Ersteinrichtung</strong></h3>
+                <ul>
+                    <li>Festplattenkonfiguration: Anzahl und Typ auswählen </li>
+                    <li>RAID-Typ auswählen: SHR (Synology Hybrid RAID) </li>
+                    <li>Administratorkonto anlegen:
+                        <ul>
+                            <li>Servername: NoelsNas</li>
+                            <li>Benutzername: Noel </li>
+                            <li>Passwort: Pas$4567 </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section id="Nas">
+                <h3><strong>4. IP-Adresse manuell konfigurieren</strong></h3>
+                <ul>
+                    <li>der Systemsteuerung → Netzwerk → Netzwerkschnittstelle:
+                        <ul>
+                            <li>IP-Adresse:<code>10.35.0.20 </code></li>
+                            <li>Subnetzmaske: <code>255.255.255.0</code></li>
+                            <li>Gateway: <code>10.35.0.1</code></li>
+                            <li>DNS-Server: <code>10.35.0.1</code></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section id="Nas">
+                <h3><strong>5. Gemeinsamer Ordner erstellen</strong></h3>
+                <ul>
+                    <li>In der Systemsteuerung → Gemeinsamer Ordner:
+                        <ul>
+                            <li>Neuen Ordner anlegen:
+                                <ul>
+                                    <li>Name: Filme </li>
+                                    <li>(Optional): Speichergrösse / Quota definieren</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section id="Nas">
+                <p><strong>6. Dienste aktivieren und Rechte setzen</strong></p>
+                <ul>
+                    <li>SMB aktivieren:
+                        Systemsteuerung → Dateidienste → SMB aktivieren (für Windows-Zugriff) </li>
+                    <li>NFS aktivieren (für Proxmox oder Linux-Systeme) </li>
+                    <li>Benutzerberechtigungen setzen:
+                        <ul>
+                            <li>Dem Benutzer Noel Lese-/Schreibrechte für den Ordner Filme geben</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </div>
+
+        <div id="proxmox" class="content-group" style="display: none;">
+            <section>
+                <h2>Proxmox VMs – Übersicht und Konfiguration</h2>
+
+                <h3>Proxmox Zugriff</h3>
+                <ul>
+                    <li>Webinterface: <a href="https://10.35.0.11:8006" target="_blank">https://10.35.0.11:8006</a></li>
+                    <li>Benutzer: root</li>
+                    <li>Passwort: Pas$4567</li>
+                </ul>
+            </section>
+            <section>
+                <h3>1. VM: MahaVM</h3>
+                <ul>
+                    <li>Name: MahaVM</li>
+                    <li>CPU: 2 Sockel, 2 Kerne</li>
+                    <li>RAM: 8192 MB (8 GB)</li>
+                    <li>ISO: Linux ISO (z. B. Ubuntu Server)</li>
+                    <li>Festplatte: 40 GB, scsi, VirtIO SCSI Controller, Cache: write back</li>
+                    <li>BIOS: OVMF (UEFI), Boot-Modus: UEFI (Secure Boot deaktiviert)</li>
+                    <li>Grafikkarte: Default oder Serial (wenn headless)</li>
+                    <li>Netzwerk: VirtIO, Bridge: vmbr0, IP im OS vergeben</li>
+                </ul>
+            </section>
+            <section>
+                <h3>2. VM: Docker2</h3>
+                <ul>
+                    <li>Name: Docker2</li>
+                    <li>CPU: 2 Sockel, 2 Kerne</li>
+                    <li>RAM: 4096 MB (4 GB)</li>
+                    <li>ISO: Linux ISO (z. B. Debian oder Ubuntu)</li>
+                    <li>Festplatte: 32–40 GB, scsi (VirtIO SCSI)</li>
+                    <li>BIOS: OVMF (UEFI), Boot-Modus: UEFI</li>
+                    <li>Netzwerk: VirtIO, Bridge: vmbr0, IP: z. B. 10.35.0.42 (statisch)</li>
+                </ul>
+            </section>
+            <section>
+                <h3>3. VM: Filme2</h3>
+                <ul>
+                    <li>Name: Filme2</li>
+                    <li>CPU: 2 Sockel, 2 Kerne</li>
+                    <li>RAM: 4096 MB (4 GB)</li>
+                    <li>ISO: Windows ISO (z. B. Windows 10 Pro N)</li>
+                    <li>Festplatte: 64–100 GB, scsi (mit VirtIO – Windows benötigt Treiber!)</li>
+                    <li>BIOS: OVMF (UEFI), Boot-Modus: UEFI (Secure Boot deaktiviert)</li>
+                    <li>Grafikkarte: Standard</li>
+                    <li>Netzwerk: VirtIO, Bridge: vmbr0, IP: z. B. 10.35.0.43 (manuell vergeben)</li>
+                    <li>VirtIO-Treiber: Bei der Installation erforderlich (als ISO mounten)</li>
+                </ul>
+            </section>
+            <section>
+                <h3> DNS/DHCP</h3>
+                <ul>
+                    <li>Username: Administrator</li>
+                    <li>Passwort: Pas$4567></li>
+                </ul>
+            </section>
+        </div>
+
+
+        <div id="liste" class="content-group" style="display: none;">
+            <section>
+                <h2>User Liste</h2>
+                <ul>10.30.0.0/24</ul>
+                <ul>Gateway: 10.30.0.1</ul>
+                <ul>Aleandro: 10.30.0.11</ul>
+                <ul>Martin: 10.30.0.21</ul>
+                <ul>Nico: 10.30.0.31</ul>
+                <ul>Til: 10.30.0.41</ul>
+                <ul>Jason: 10.30.0.51</ul>
+                <ul>Leandro: 10.30.0.61</ul>
+                <ul>Noel: 10.30.0.71</ul>
+                <ul>Haci: 10.30.0.81</ul>
+                <ul>Damian: 10.30.0.91</ul>
+                <ul>Nils: 10.30.0.101</ul>
+            </section>
+
+            <section id="server">
+                <h2>Server</h2>
+                <ul>10.35.0.0/24</ul>
+                <ul>Gateway: 10.35.0.1</ul>
+                <ul>Proxmox1: 10.35.0.11</ul>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2025 – Systemtechnik Woche 2</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.subnav-buttons a').forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                const target = this.getAttribute('data-target');
+
+                document.querySelectorAll('.content-group').forEach(group => {
+                    group.style.display = 'none';
+                });
+                document.getElementById(target).style.display = 'block';
+
+                document.querySelectorAll('.subnav-buttons a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
