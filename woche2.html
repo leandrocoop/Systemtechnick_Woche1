@@ -22,13 +22,14 @@
 
     <header class="apple-header">
         <h1>Woche 2 – How to Nas</h1>
-        <p class="subtitle">Systemtechnik – Tag 2</p>
+        <p class="subtitle">Systemtechnik – Woche 2</p>
         <nav class="subnav-buttons">
             <ul>
                 <li><a href="#" data-target="nas" class="active">NAS</a></li>
                 <li><a href="#" data-target="proxmox">Proxmox</a></li>
                 <li><a href="#" data-target="raids">Raidtypen</a></li>
                 <li><a href="#" data-target="uptimekuma">Uptime Kuma</a></li>
+                <li><a href="#" data-target="arrapplikation">ARR Applikation</a></li>
                 <li><a href="#" data-target="liste">Liste</a></li>
             </ul>
         </nav>
@@ -257,11 +258,150 @@
             </section>
         </div>
 
+        <div id="arrapplikation" class="content-group" style="display: none;">
+            <section>
+                <h3><strong>7. Sonarr & Radarr via Docker installieren</strong></h3>
+
+                <h4>Ordnerstruktur vorbereiten</h4>
+                <pre><code>sudo mkdir -p /docker/sonarr/config /docker/sonarr/tv /docker/sonarr/downloads
+sudo mkdir -p /docker/radarr/config /docker/radarr/movies /docker/radarr/downloads
+sudo mkdir -p /docker/recyclarr/config
+sudo chown -R 1000:1000 /docker</code></pre>
+
+                <h4>Sonarr starten (Port 8989)</h4>
+                <pre><code>docker run -d \
+  --name=sonarr \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/Zurich \
+  -p 8989:8989 \
+  -v /docker/sonarr/config:/config \
+  -v /docker/sonarr/tv:/tv \
+  -v /docker/sonarr/downloads:/downloads \
+  --restart unless-stopped \
+  linuxserver/sonarr</code></pre>
+                <p><strong>Aufruf im Browser:</strong> <code>http://10.35.0.41:8989</code></p>
+
+                <h4>Radarr starten (Port 7878)</h4>
+                <pre><code>docker run -d \
+  --name=radarr \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/Zurich \
+  -p 7878:7878 \
+  -v /docker/radarr/config:/config \
+  -v /docker/radarr/movies:/movies \
+  -v /docker/radarr/downloads:/downloads \
+  --restart unless-stopped \
+  linuxserver/radarr</code></pre>
+                <p><strong>Aufruf im Browser:</strong> <code>http://10.35.0.41:7878</code></p>
+            </section>
+
+            <section>
+                <h4>Recyclarr Container starten</h4>
+                <pre><code>docker run -d \
+  --name=recyclarr \
+  -v /docker/recyclarr/config:/config \
+  --restart unless-stopped \
+  ghcr.io/recyclarr/recyclarr</code></pre>
+            </section>
+
+            <section>
+                <h4>Beispielhafte <code>recyclarr.yml</code> Konfiguration</h4>
+                <pre><code>sonarr:
+  anime:
+    base_url: http://10.35.0.41:8989
+    api_key: 33bb0f98260e4108b055af6d786ac701
+    quality_definition:
+      type: anime
+    custom_formats:
+      - trash_ids:
+          - 513b3c74d8da4a5cf8182f61dd33e5d55  # x265 Anime
+          - 17fbb0f729544c8a6101ecf86539a4e    # WebRip Anime
+          - 84e28c59bff8fdda48970cbf3a2bbb89   # Repack/Proper
+
+  series:
+    base_url: http://10.35.0.41:8989
+    api_key: 33bb0f98260e4108b055af6d786ac701
+    quality_definition:
+      type: series
+    custom_formats:
+      - trash_ids:
+          - 78d1feaf4bc79b3e299b1363d07bc4e5   # x265
+          - f1fd95ad49f1c7db8e6f76e2b5c5f9be   # x264
+          - 4fc5e4cfc4d0d31a2b70c0b4a4cf58d8  # WEB-DL
+          - 35c3072f8d1841c2adb9d4347cf516db  # HDR
+
+radarr:
+  movies:
+    base_url: http://10.35.0.41:7878
+    api_key: d1b33c9971c34b83b3330916e348c624
+    quality_definition:
+      type: movie
+    custom_formats:
+      - trash_ids:
+          - 78d1feaf4bc79b3e299b1363d07bc4e5   # x265
+          - f1fd95ad49f1c7db8e6f76e2b5c5f9be   # x264
+          - 35c3072f8d1841c2adb9d4347cf516db  # HDR
+          - 5e3a1d5e37f8ebe66d1c5bd045f50f24c  # Dolby Vision
+          - d4f774a3c3db3c1f755164a762bdc91    # Remux
+          - 4fc5e4cfc4d0d31a2b70c0b4a4cf58d8   # WEB-DL
+          - 84e28c59bff8fdda48970cbf3a2bbb89   # Repack/Proper
+          - f8d172a9-67dc-445c-8409-95fbd1366d03  # Scene</code></pre>
+            </section>
+
+            <section>
+                <h4>Sync manuell ausführen</h4>
+                <pre><code>docker exec recyclarr recyclarr sync</code></pre>
+                <p>Dieser Befehl holt sich die <strong>aktuellen Custom Formats</strong> aus GitHub und wendet sie an.
+                </p>
+            </section>
+
+            <section>
+                <h3><strong>8. Overseerr installieren</strong></h3>
+
+                <h4>Ordnerstruktur vorbereiten</h4>
+                <pre><code>sudo mkdir -p /docker/overseerr/config
+sudo chown -R 1000:1000 /docker/overseerr</code></pre>
+
+                <h4>Overseerr starten (Port 5055)</h4>
+                <pre><code>docker run -d \
+  --name=overseerr \
+  -e LOG_LEVEL=info \
+  -e TZ=Europe/Zurich \
+  -e UMASK=002 \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -p 5055:5055 \
+  -v /docker/overseerr/config:/app/config \
+  --restart unless-stopped \
+  sctx/overseerr</code></pre>
+
+                <p><strong>Aufruf im Browser:</strong> <code>http://10.35.0.41:5055</code></p>
+
+                <p>Beim ersten Start kann ein Admin-Konto erstellt werden. Danach Sonarr und Radarr unter "Settings →
+                    Services" einbinden:</p>
+                <ul>
+                    <li>Sonarr URL: <code>http://10.35.0.41:8989</code></li>
+                    <li>Radarr URL: <code>http://10.35.0.41:7878</code></li>
+                </ul>
+                <p>API Keys findest du jeweils in den Sonarr/Radarr Einstellungen → API.</p>
+            </section>
+            <section>
+
+            </section>
+        </div>
+
+
+
+
+
         <div id="uptimekuma" class="content-group" style="display: none;">
             <section>
                 <h2>Uptime Kuma – Netzwerküberwachung</h2>
 
-                <p>Mit <strong>Uptime Kuma</strong> überwachen wir die Erreichbarkeit aller wichtigen Systeme im Netz:
+                <p>Mit <strong>Uptime Kuma</strong> überwachen wir die Erreichbarkeit aller wichtigen Systeme im
+                    Netz:
                 </p>
 
                 <h3>Überwachte Ziele</h3>
