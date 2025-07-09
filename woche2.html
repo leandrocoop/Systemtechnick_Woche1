@@ -388,7 +388,37 @@ sudo chown -R 1000:1000 /docker/overseerr</code></pre>
                 <p>API Keys findest du jeweils in den Sonarr/Radarr Einstellungen → API.</p>
             </section>
             <section>
+                <h4>Quality Profile 1: Englisch (min. 720p, max. 1080p, bevorzugt 7.1, HDR)</h4>
+                <pre><code>Name: English Only 1080p
+Min. Qualität: 720p
+Max. Qualität: 1080p
+Bevorzugt:
+  - Surround 7.1
+  - HDR
+  - Sprache: Englisch
+Fallback:
+  - Surround 5.1
+  - SDR
+Sonstiges:
+  - Upgrade erlaubt bis 1080p
+  - Keine niedrigeren Formate erlaubt</code></pre>
+            </section>
 
+            <section>
+                <h4>Quality Profile 2: Deutsch & Englisch (min. 720p, max. 1080p, bevorzugt 7.1, SDR)</h4>
+                <pre><code>Name: German & English Mix 1080p
+Min. Qualität: 720p
+Max. Qualität: 1080p
+Bevorzugt:
+  - Surround 7.1
+  - HDR
+  - Sprache: Deutsch & Englisch
+Fallback:
+  - Surround 5.1
+  - SDR
+Sonstiges:
+  - Upgrade erlaubt bis 1080p
+  - Keine niedrigeren Formate erlaubt</code></pre>
             </section>
         </div>
 
