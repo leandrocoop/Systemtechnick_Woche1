@@ -29,6 +29,7 @@
                 <li><a href="#" data-target="proxmox">Proxmox</a></li>
                 <li><a href="#" data-target="raids">Raidtypen</a></li>
                 <li><a href="#" data-target="uptimekuma">Uptime Kuma</a></li>
+                <li><a href="#" data-target="cuba">Cubernatiscluster</a></li>
                 <li><a href="#" data-target="arrapplikation">ARR Applikation</a></li>
                 <li><a href="#" data-target="liste">Liste</a></li>
             </ul>
@@ -254,6 +255,131 @@
                             <li>Ideal für Heimanwender, Testsysteme oder wenn Platten unterschiedlich gross sind.</li>
                         </ul>
                     </li>
+                </ul>
+            </section>
+        </div>
+
+
+        <div id="cuba" class="content-group" style="display: none;">
+            <section>
+                <h2>Linux-Cluster mit Docker & Rancher</h2>
+
+                <h3>1. Voraussetzungen</h3>
+                <ul>
+                    <li>Mindestens zwei Linux-Systeme (z. B. Ubuntu 22.04)</li>
+                    <li>Docker ist auf allen Systemen installiert:
+                        <pre><code>sudo apt install docker.io</code></pre>
+                    </li>
+                    <li>Zugriff auf die Systeme via SSH</li>
+                </ul>
+
+                <h3>2. Rancher starten (Management-Node)</h3>
+                <p>Rancher wird auf dem Master-System als Container gestartet:</p>
+                <pre><code>docker run -d --restart=unless-stopped \
+  -p 80:80 -p 443:443 \
+  --name rancher \
+  -v /docker/rancher:/var/lib/rancher \
+  rancher/rancher</code></pre>
+                <p>Danach im Browser öffnen: <code>http://&lt;10.30.0.51&gt;</code></p>
+
+                <h3>3. Cluster im Rancher-Webinterface erstellen</h3>
+                <ul>
+                    <li>Rancher-Webinterface aufrufen</li>
+                    <li>Auf <strong>„Cluster hinzufügen“</strong> klicken</li>
+                    <li><strong>„Custom“</strong> auswählen</li>
+                    <li>Namen vergeben, z. B. <code>LinuxCluster</code></li>
+                    <li>Rollen setzen:
+                        <ul>
+                            <li>etcd</li>
+                            <li>Control Plane</li>
+                            <li>Worker</li>
+                        </ul>
+                    </li>
+                    <li>Skript wird automatisch generiert</li>
+                </ul>
+
+                <h3>4. Nodes zum Cluster hinzufügen</h3>
+                <p>Das Skript aus dem Rancher-UI wird auf den weiteren Linux-Hosts ausgeführt:</p>
+                <pre><code>docker run -d --privileged --restart=unless-stopped \
+  --net=host \
+  -v /etc/kubernetes:/etc/kubernetes \
+  -v /var/run:/var/run \
+  -v /var/lib/docker:/var/lib/docker \
+  -v /var/lib/kubelet:/var/lib/kubelet \
+  rancher/rancher-agent:&lt;VERSION&gt; \
+  --server https://&lt;RANCHER-IP&gt; \
+  --token &lt;TOKEN&gt; \
+  --ca-checksum &lt;CHECKSUM&gt; \
+  --etcd --controlplane --worker</code></pre>
+
+                <h3>5. Überprüfung</h3>
+                <ul>
+                    <li>Alle Nodes erscheinen als <strong>„Active“</strong> im Dashboard</li>
+                    <li>Ein Test-Pod oder Workload kann im UI gestartet werden</li>
+                </ul>
+
+                <h3>6. Wichtige Hinweise</h3>
+                <ul>
+                    <li>Firewall: Ports wie <code>80</code>, <code>443</code>, <code>6443</code> freigeben</li>
+                    <li>TLS-Warnung beim ersten Aufruf ist normal ohne Zertifikat</li>
+                    <li>Daten werden im Volume <code>/docker/rancher</code> gespeichert</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Rancher Apps – Logging & Monitoring</h2>
+
+                <h3>1. Voraussetzungen</h3>
+                <ul>
+                    <li>Rancher Cluster ist betriebsbereit</li>
+                    <li>Zugriff auf das Rancher-Dashboard</li>
+                    <li>Apps & Marketplace aktiviert (Cluster → Apps & Marketplace)</li>
+                </ul>
+
+                <h3>2. Logging installieren (Loki + Grafana)</h3>
+                <ul>
+                    <li>Im Rancher UI → „Apps & Marketplace“ → „Charts“</li>
+                    <li><strong>Loki</strong> suchen und installieren</li>
+                    <li>Namespace auswählen (z. B. `cattle-logging`) oder neu erstellen</li>
+                    <li>Standardkonfiguration kann verwendet werden</li>
+                    <li>Danach <strong>Grafana</strong> installieren</li>
+                    <li>Grafana mit Loki verbinden (in Grafana: Data Sources → Loki)</li>
+                </ul>
+
+                <p><strong>Aufruf:</strong> Grafana Dashboard über NodePort oder Ingress erreichbar machen</p>
+
+                <h3>3. Monitoring installieren (Prometheus + Grafana)</h3>
+                <ul>
+                    <li>Zurück zu „Apps & Marketplace“ → „Monitoring“ suchen</li>
+                    <li><strong>Monitoring (Prometheus)</strong> installieren</li>
+                    <li>Namespace: z. B. `cattle-monitoring`</li>
+                    <li>„Enable Grafana“ aktivieren</li>
+                    <li>Optional: Node Exporter, Kube-State-Metrics aktivieren</li>
+                    <li>Installation starten</li>
+                </ul>
+
+                <p>Nach der Installation kannst du über Grafana → Dashboards alle Ressourcen im Cluster überwachen:</p>
+                <ul>
+                    <li>CPU- und RAM-Auslastung pro Node</li>
+                    <li>Pod-Status und Events</li>
+                    <li>Festplattennutzung und Netzwerkauslastung</li>
+                </ul>
+
+                <h3>4. Zugriff auf Grafana (optional)</h3>
+                <ul>
+                    <li>Standard-Login bei erster Anmeldung:
+                        <ul>
+                            <li>Benutzer: <code>admin</code></li>
+                            <li>Passwort: Wird bei Installation gesetzt oder automatisch generiert</li>
+                        </ul>
+                    </li>
+                    <li>Empfohlen: eigenes Passwort setzen und ggf. Auth aktivieren</li>
+                </ul>
+
+                <h3>5. Vorteile der Integration</h3>
+                <ul>
+                    <li>Zentrales Logging für alle Container & Pods</li>
+                    <li>Visualisierung aller Cluster-Metriken in Echtzeit</li>
+                    <li>Alert-Regeln möglich (z. B. CPU über 90 %)</li>
                 </ul>
             </section>
         </div>
