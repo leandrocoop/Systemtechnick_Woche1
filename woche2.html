@@ -29,7 +29,7 @@
                 <li><a href="#" data-target="proxmox">Proxmox</a></li>
                 <li><a href="#" data-target="raids">Raidtypen</a></li>
                 <li><a href="#" data-target="uptimekuma">Uptime Kuma</a></li>
-                <li><a href="#" data-target="cuba">Cubernatiscluster</a></li>
+                <li><a href="#" data-target="cuba">Kubernetes</a></li>
                 <li><a href="#" data-target="arrapplikation">ARR Applikation</a></li>
                 <li><a href="#" data-target="liste">Liste</a></li>
             </ul>
@@ -261,6 +261,44 @@
 
 
         <div id="cuba" class="content-group" style="display: none;">
+            <section>
+                <h2>Kubernetes Cluster mit Rancher</h2>
+
+                <h3>Architekturübersicht</h3>
+                <p>Unser Kubernetes-Cluster besteht aus:</p>
+                <ul>
+                    <li><strong>1 Master Node</strong> (Verwaltet das Cluster)</li>
+                    <li><strong>2 Worker Nodes</strong> (Führen die Anwendungen aus)</li>
+                </ul>
+
+                <img src="cluster.png" alt="Kubernetes Architekturdiagramm"
+                    style="max-width: 100%; height: auto; margin-top: 10px;">
+
+                <h3>Master Node Komponenten</h3>
+                <ul>
+                    <li><strong>API Server:</strong> Schnittstelle für Kommunikation</li>
+                    <li><strong>Controller Manager:</strong> Verwaltung der Controller</li>
+                    <li><strong>Scheduler:</strong> Zuweisung von Pods an Nodes</li>
+                    <li><strong>etcd:</strong> Key-Value-Store für Cluster-Zustand</li>
+                </ul>
+
+                <h3>Worker Node Komponenten</h3>
+                <ul>
+                    <li><strong>Kubelet:</strong> Kommunikation mit dem Master</li>
+                    <li><strong>Kube-Proxy:</strong> Netzwerkmanagement</li>
+                    <li><strong>Container Runtime:</strong> Startet Container (z. B. Docker)</li>
+                </ul>
+
+                <h3>Wichtige Hinweise</h3>
+                <ul>
+                    <li><strong>Stromsparmodus deaktivieren:</strong> Auf den Linux-Nodes sollte der automatische
+                        Energiesparmodus deaktiviert werden, da dieser sonst zu Instabilitäten im Cluster führen kann.
+                    </li>
+                    <li><code>sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target</code>
+                    </li>
+                </ul>
+            </section>
+
             <section>
                 <h2>Linux-Cluster mit Docker & Rancher</h2>
 
