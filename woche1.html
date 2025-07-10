@@ -24,7 +24,6 @@
     <h1>Woche 1 – Netzwerkkomponenten & IP-Adressierung</h1>
     <p class="subtitle">Systemtechnik</p>
 
-
     <nav class="subnav-buttons">
       <ul>
         <li><a href="#" data-target="normal" class="active">Theorie Inhalte</a></li>
@@ -33,30 +32,22 @@
         <li><a href="#" data-target="liste">IP Liste</a></li>
       </ul>
     </nav>
-
   </header>
 
   <main class="apple-main">
-
-
 
     <div id="normal" class="content-group">
       <section id="netzwerk">
         <h2>Netzwerkkomponenten</h2>
         <p>Wir haben folgende Geräte und deren Funktionen im Netzwerk kennengelernt:</p>
         <ul>
-          <li><strong>Switch:</strong> Intelligentes LAN-Gerät, arbeitet auf OSI-Schicht 2. Leitet Daten gezielt per
-            MAC-Adresse weiter.</li>
-          <li><strong>Hub:</strong> Einfaches Verteilgerät (Schicht 1), sendet alle Daten an alle Geräte – ineffizient
-            und
-            veraltet.</li>
+          <li><strong>Switch:</strong> Intelligentes LAN-Gerät, arbeitet auf OSI-Schicht 2. Leitet Daten gezielt per MAC-Adresse weiter.</li>
+          <li><strong>Hub:</strong> Einfaches Verteilgerät (Schicht 1), sendet alle Daten an alle Geräte – ineffizient und veraltet.</li>
           <li><strong>Bridge:</strong> Verbindet Netzsegmente und filtert Datenverkehr. Arbeitet auf Schicht 2.</li>
-          <li><strong>Access Point:</strong> Ermöglicht WLAN-Zugriff auf ein LAN. Verbindet mobile Geräte wie
-            Smartphones
-            oder Tablets mit dem kabelgebundenen Netz.</li>
-          <li><strong>Server:</strong> Zentrale Systeme für Dienste wie Dateiablage, Webhosting oder Datenbanken. Meist
-            24/7 in Betrieb.</li>
+          <li><strong>Access Point:</strong> Ermöglicht WLAN-Zugriff auf ein LAN. Verbindet mobile Geräte mit dem kabelgebundenen Netz.</li>
+          <li><strong>Server:</strong> Zentrale Systeme für Dienste wie Dateiablage, Webhosting oder Datenbanken.</li>
         </ul>
+        <img src="https://www.edupointbd.com/wp-content/uploads/2017/08/netmap.gif" alt="Netzwerkgeräte Übersicht" style="max-width:100%;">
       </section>
 
       <section id="ip">
@@ -68,25 +59,23 @@
           <li>Gesamtlänge: 32 Bit (4 × 8)</li>
           <li>Darstellung: Dezimalform, durch Punkte getrennt</li>
         </ul>
+        <img src="https://www.ionos.de/digitalguide/fileadmin/DigitalGuide/Screenshots_2018/aufbau-von-ipv4-und-ipv6-adressen.png" alt="IPv4 Aufbau" style="max-width:100%;">
       </section>
 
       <section id="netze">
         <h2>Netzklassen & Beispiele</h2>
         <ul>
           <li><strong>Class C:</strong> <code>192.168.10.0/24</code> – Netzmaske: <code>255.255.255.0</code></li>
-          <li><strong>Class B:</strong> <code>172.16.0.0/16</code> bis <code>172.31.0.0/16</code> – Netzmaske:
-            <code>255.255.0.0</code>
-          </li>
+          <li><strong>Class B:</strong> <code>172.16.0.0/16</code> bis <code>172.31.0.0/16</code> – Netzmaske: <code>255.255.0.0</code></li>
           <li><strong>Class A:</strong> <code>10.0.0.0/8</code> – Netzmaske: <code>255.0.0.0</code></li>
         </ul>
-
         <p><strong>Beispiel B-Netz:</strong> <code>172.16.0.1 – 172.16.255.255</code></p>
+        <img src="https://www.computerweekly.com/rms/German/IPv4-Klasse-B-Adresse-deutsch_mobile.png" alt="Netzklassen Übersicht" style="max-width:100%;">
       </section>
 
       <section id="supernetting">
         <h2>Supernetting</h2>
-        <p>Supernetting (Routenaggregation) fasst mehrere Netzwerke zu einem größeren Block zusammen. Ziel: Routing
-          vereinfachen.</p>
+        <p>Supernetting (Routenaggregation) fasst mehrere Netzwerke zu einem größeren Block zusammen. Ziel: Routing vereinfachen.</p>
         <ul>
           <li>Beispielmaske: <code>255.254.0.0</code> (16 Bit Netzanteil)</li>
           <li>Adressbereich: <code>172.16.0.1 – 172.17.255.255</code></li>
@@ -96,8 +85,7 @@
       <section id="hinweise">
         <h2>Wichtige Hinweise</h2>
         <ul>
-          <li><strong>Netzmaske:</strong> Definiert, welcher Teil der IP-Adresse Netzanteil und welcher Hostanteil ist.
-            Beispiel: <code>255.255.255.0</code> → 24 Bit Netz / 8 Bit Host</li>
+          <li><strong>Netzmaske:</strong> Definiert, welcher Teil der IP-Adresse Netzanteil und welcher Hostanteil ist. Beispiel: <code>255.255.255.0</code> → 24 Bit Netz / 8 Bit Host</li>
           <li><strong>Private IP-Bereiche:</strong> Nicht öffentlich geroutet:
             <ul>
               <li><code>10.0.0.0/8</code></li>
@@ -105,8 +93,7 @@
               <li><code>192.168.0.0/16</code></li>
             </ul>
           </li>
-          <li><strong>Moderne Netzwerke:</strong> Verwenden meist Switches & Access Points – Hubs/Bridges selten, meist
-            nur in alten Netzen.</li>
+          <li><strong>Moderne Netzwerke:</strong> Verwenden meist Switches & Access Points – Hubs/Bridges selten.</li>
         </ul>
       </section>
     </div>
@@ -116,90 +103,52 @@
         <h2>Installationsguide Windows</h2>
         <ul>
           <li><strong>Boot von USB-Stick:</strong>
-            <ul>USB-Stick mit Windows 11 angeschlossen.</ul>
-            <ul>PC gestartet und über Esc + F9 ins Boot-Menü gewechselt.</ul>
-            <ul>Boot-Option „USB-Stick“ ausgewählt.</ul>
+            <ul><li>USB-Stick mit Windows 11 angeschlossen.</li></ul>
+            <ul><li>Esc + F9 ins Boot-Menü.</li></ul>
+            <ul><li>USB-Stick ausgewählt.</li></ul>
           </li>
           <li><strong>Windows 11 Installation:</strong>
-            <ul>Setup gestartet</ul>
-            <ul>Tastatur Schweiz (Deutsch)</ul>
-            <ul>Alte Partition (Partition 0 - Windows) gelöscht. </ul>
-            <ul>Neue Partition erstellt: Größe 102400 MB (ca. 100 GB) und ausgewählt</ul>
-            <ul>Windows installiert</ul>
+            <ul><li>Setup gestartet, Schweiz (Deutsch) gewählt.</li></ul>
+            <ul><li>Partition gelöscht, neue erstellt (100 GB).</li></ul>
+            <ul><li>Windows installiert.</li></ul>
           </li>
-          <li><strong>Ersteinrichtung Windows:</strong>
-            <ul>Benutzername/Passwort frei gewählt</ul>
-            <ul>Datenschutz-Optionen „nur erforderlich“.</ul>
-            <ul>Einrichtung abgeschlossen</ul>
+          <li><strong>Ersteinrichtung:</strong>
+            <ul><li>Benutzername/Passwort gewählt.</li></ul>
+            <ul><li>Nur erforderliche Datenschutzoptionen.</li></ul>
           </li>
           <li><strong>Nachbereitung:</strong>
-            <ul>BitLocker deaktiviert.</ul>
+            <ul><li>BitLocker deaktiviert.</li></ul>
           </li>
         </ul>
+    
       </section>
+
       <section>
         <h2>Installationsguide Ubuntu</h2>
         <ul>
-          <li><strong>Ubuntu Desktop Installation:</strong>
-            <ul>Ubuntu nach Windows installiert.</ul>
-          </li>
-          <li><strong>Boot von USB-Stick:</strong>
-            <ul>USB-Stick mit Windows 11 angeschlossen.</ul>
-            <ul>PC gestartet und über Esc + F9 ins Boot-Menü gewechselt.</ul>
-            <ul>Boot-Option „USB-Stick“ ausgewählt.</ul>
-          </li>
-          <li><strong>Installationsprozess</strong>
-            <ul>„Try or Install Ubuntu“ gestartet.</ul>
-            <ul>Sprache: Deutsch gewählt.</ul>
-            <ul>Barrierefreiheit: Übersprungen („Weiter“).</ul>
-            <ul>Tastatur: Schweiz gewählt → Shortcut-Erkennung durchgeführt (z. B. Shift + 3).</ul>
-            <ul>Keine Internetverbindung hergestellt.</ul>
-            <ul>Ubuntu installieren ausgewählt.</ul>
-          </li>
-          <li><strong>Installationsoptionen</strong>
-            <ul>Interaktive Installation.</ul>
-            <ul>Standardinstallation (keine zusätzlichen empfohlenen Programme).</ul>
-            <ul>Installation: „Ubuntu neben Windows Bootmanager installieren“.</ul>
-          </li>
-          <li><strong>Benutzerkonto</strong>
-            <ul>Benutzername: beliebig</ul>
-            <ul>Passwort: beliebig</ul>
-            <ul>Standort: Zürich gewählt.</ul>
-          </li>
-          <li><strong>Abschluss</strong>
-            <ul>Alle Einstellungen überprüft.</ul>
-            <ul>Installation gestartet.</ul>
-            <ul>Nach Abschluss: PC ausgeschaltet (kein automatischer Neustart).</ul>
+          <li><strong>Installation:</strong>
+            <ul><li>Ubuntu neben Windows installiert.</li></ul>
+            <ul><li>Sprache: Deutsch, Tastatur: Schweiz.</li></ul>
+            <ul><li>Keine Internetverbindung hergestellt.</li></ul>
+            <ul><li>Installation abgeschlossen, Standort: Zürich.</li></ul>
           </li>
         </ul>
+       
       </section>
     </div>
-
 
     <div id="internet" class="content-group" style="display: none;">
       <section>
         <h2>Netzwerkkonfiguration Windows</h2>
         <ul>
-          <li><strong>Windows Boot</strong>
-            <ul>PC gestartet und Windows Bootmanager ausgewählt.</ul>
+          <li><strong>IP manuell konfigurieren:</strong>
+            <ul><li>IP-Adresse, Subnetzmaske, Gateway, DNS eingetragen.</li></ul>
           </li>
-          <li><strong>Netzwerkkabel anschliessen</strong>
-            <ul>Netzwerkkabel vom Switch an den PC angeschlossen.</ul>
-          </li>
-          <li><strong>IP-Adresse manuell konfigurieren</strong>
-            <ul>Einstellungen → Netzwerk & Internet → Ethernet.</ul>
-            <ul>IP-Zuweisung bearbeitet:</ul>
-            <ul>IP-Adresse: (nach Vorgabe / Liste eingetragen)</ul>
-            <ul>Subnetzmaske: 255.255.255.0</ul>
-            <ul>Gateway: 10.30.0.1</ul>
-            <ul>DNS: 10.33.0.2</ul>
-            <ul>Einstellungen gespeichert.</ul>
-          </li>
-          <li><strong>Netzwerktest</strong>
-            <ul>Windows + R → cmd geöffnet.</ul>
-            <ul>ping-Befehl verwendet, um andere User im Netzwerk zu prüfen (siehe Liste).</ul>
+          <li><strong>Netzwerktest:</strong>
+            <ul><li>cmd → ping verwendet</li></ul>
           </li>
         </ul>
+       
       </section>
     </div>
 
@@ -232,10 +181,8 @@
         <ul>MaHaVM: 10.35.0.31</ul>
         <ul>docker2: 10.35.0.41</ul>
         <ul>gitea: 10.35.0.51</ul>
-
       </section>
     </div>
-
 
   </main>
 
