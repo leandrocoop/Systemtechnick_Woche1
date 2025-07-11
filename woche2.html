@@ -724,6 +724,67 @@ Sonstiges:
                     <li>Zugriff per Browser, App oder Desktop-Client</li>
                 </ul>
             </section>
+
+            <section><h2>Dockerfile</h2>
+<h3><strong>1. Repository clonen</strong></h3>
+<ul>
+    <li>Projekt von GitHub oder lokalem Git-Repository clonen</li>
+</ul>
+
+<h3><strong>2. Dockerfile erstellen</strong></h3>
+<ul>
+    <li>Ein neues <code>Dockerfile</code> anlegen</li>
+    <li>Als Basis <code>nginx:alpine</code> verwenden</li>
+</ul>
+
+<h3><strong>3. Docker Image bauen</strong></h3>
+<ul>
+    <li>Mit folgendem Befehl das Image erstellen:</li>
+    <li><code>docker build -t mein-nginx-image .</code></li>
+</ul>
+
+<h3><strong>4. Docker Image anzeigen</strong></h3>
+<ul>
+    <li><code>docker images</code> aufrufen</li>
+    <li>Das eigene Image sollte in der Liste erscheinen</li>
+</ul>
+
+<h3><strong>5. Container starten</strong></h3>
+<ul>
+    <li>Mit folgendem Befehl den Container starten:</li>
+    <li><code>docker run -d -p 8080:80 --name mein-nginx mein-nginx-image</code></li>
+</ul>
+</section>
+
+<section><h2>ntfy installieren und nutzen</h2>
+
+<h3><strong>1. Voraussetzungen installieren</strong></h3>
+<ul>
+    <li><code>sudo mkdir -p /etc/apt/keyrings</code></li>
+    <li><code>curl -fsSL https://archive.heckel.io/apt/pubkey.txt | sudo gpg --dearmor -o /etc/apt/keyrings/archive.heckel.io.gpg</code></li>
+    <li><code>sudo apt install apt-transport-https</code></li>
+    <li><code>sudo sh -c "echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/archive.heckel.io.gpg] https://archive.heckel.io/apt debian main' > /etc/apt/sources.list.d/archive.heckel.io.list"</code></li>
+</ul>
+
+<h3><strong>2. ntfy installieren</strong></h3>
+<ul>
+    <li><code>sudo apt update</code></li>
+    <li><code>sudo apt install ntfy</code></li>
+</ul>
+
+<h3><strong>3. ntfy aktivieren und starten</strong></h3>
+<ul>
+    <li><code>sudo systemctl enable ntfy</code></li>
+    <li><code>sudo systemctl start ntfy</code></li>
+</ul>
+
+<h3><strong>4. Nutzung</strong></h3>
+<ul>
+    <li>Nach der Installation kann <code>http://localhost</code> im Browser geöffnet werden</li>
+    <li>Dort kann man ein neues Thema erstellen und eine Benachrichtigung senden</li>
+    <li>Jeder, der dem Thema beitritt, erhält die Benachrichtigungen automatisch</li>
+</ul>
+</section>
         </div>
 
 
