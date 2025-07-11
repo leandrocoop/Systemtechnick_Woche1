@@ -586,6 +586,28 @@ Sonstiges:
   - Upgrade erlaubt bis 1080p
   - Keine niedrigeren Formate erlaubt</code></pre>
             </section>
+
+            <section>
+                <h3><strong>7. NFS-Mount auf Client via <code>/etc/fstab</code></strong></h3>
+                <ul>
+                    <li>Auf dem Client NFS-Paket installieren (falls noch nicht installiert):
+                        <pre><code>sudo apt install nfs-common</code></pre>
+                    </li>
+                    <li>Mount-Verzeichnis erstellen:
+                        <pre><code>sudo mkdir -p /mnt/filme</code></pre>
+                    </li>
+                    <li><strong>Eintrag in <code>/etc/fstab</code> hinzufügen:</strong>
+                        <pre><code>10.35.0.20:/volume1/Filme  /mnt/filme  nfs  defaults  0  0</code></pre>
+                    </li>
+                    <li>Anschliessend mounten:
+                        <pre><code>sudo mount -a</code></pre>
+                    </li>
+                    <li><strong>Hinweis:</strong> <code>/volume1/Filme</code> ist der Pfad auf dem NAS. Je nach
+                        NAS-System kann der Pfad leicht variieren.</li>
+                </ul>
+            </section>
+
+
         </div>
 
 
