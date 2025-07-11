@@ -31,6 +31,7 @@
                 <li><a href="#" data-target="uptimekuma">Uptime Kuma</a></li>
                 <li><a href="#" data-target="cuba">Kubernetes</a></li>
                 <li><a href="#" data-target="arrapplikation">ARR Applikation</a></li>
+                <li><a href="#" data-target="vaultwarden">Vaultwarden</a></li>
                 <li><a href="#" data-target="liste">Liste</a></li>
             </ul>
         </nav>
@@ -633,6 +634,79 @@ Sonstiges:
                         Netzwerk</strong> sowie das <strong>Internet</strong> erreichbar sind.</p>
             </section>
         </div>
+
+        <div id="vaultwarden" class="content-group" style="display: none;">
+            <section>
+                <h2>Vaultwarden mit Nginx und SSL-Zertifikat</h2>
+                <p>In dieser Konfiguration läuft ein eigener <strong>Password Manager (Vaultwarden)</strong> in einem
+                    Docker-Container. Die Absicherung erfolgt über ein selbst signiertes Zertifikat und einen
+                    vorgeschalteten <strong>Nginx Reverse Proxy</strong>.</p>
+
+                <h3>1. Ordnerstruktur und Dateien</h3>
+                <p>Alle Konfigurationsdateien befinden sich im Pfad:</p>
+                <pre><code>/docker/vaultwarden/ssl/</code></pre>
+                <ul>
+                    <li><code>nginx.conf</code> → Konfiguration für HTTPS-Reverse-Proxy</li>
+                    <li><code>vaultwarden.crt</code> → SSL-Zertifikat (selbst signiert)</li>
+                    <li><code>vaultwarden.key</code> → Privater Schlüssel</li>
+                </ul>
+
+                <h3>2. SSL-Zertifikat prüfen</h3>
+                <p>Da im Container kein OpenSSL installiert war, wurde das Zertifikat direkt auf dem Host geprüft:</p>
+                <pre><code>openssl x509 -in /docker/vaultwarden/ssl/vaultwarden.crt -noout -text</code></pre>
+
+                <p>Ergebnis:</p>
+                <ul>
+                    <li><strong>Issuer:</strong> CH, Zurich, VaultNet (IT)</li>
+                    <li><strong>Gültig von:</strong> 11. Juli 2025</li>
+                    <li><strong>Gültig bis:</strong> 11. Juli 2026</li>
+                    <li><strong>Common Name (CN):</strong> vault.local</li>
+                </ul>
+
+                <h3>3. Nginx Reverse Proxy konfigurieren</h3>
+                <p>Die <code>nginx.conf</code> bindet das Zertifikat ein und leitet HTTPS-Anfragen an den
+                    Vaultwarden-Container weiter:</p>
+                <ul>
+                    <li>Port 443 für HTTPS</li>
+                    <li>Proxy-Pass zur Vaultwarden-App (z. B. auf Port 80)</li>
+                    <li>SSL aktiviert mit Zertifikat und Key aus dem <code>/ssl</code>-Verzeichnis</li>
+                </ul>
+
+                <h3>4. Zertifikat lokal vertrauen</h3>
+                <ul>
+                    <li>Da das Zertifikat <strong>selbst signiert</strong> ist, muss es dem lokalen System (z. B.
+                        Windows/Linux Client) als „vertrauenswürdig“ hinzugefügt werden.</li>
+                    <li>Alternativ kann die HTTPS-Warnung im Browser ignoriert werden.</li>
+                </ul>
+
+                <h3>5. DNS-Zuordnung: 10.35.0.41</h3>
+                <p>Für den Zugriff auf Vaultwarden mit dem Hostnamen <code>10.35.0.41</code> wurde ein lokaler
+                    DNS-Eintrag gesetzt:</p>
+                <pre><code>10.35.0.41</code></pre>
+                <p>Diesen Eintrag musst du auf dem Client hinzufügen – z. B. in:</p>
+                <ul>
+                    <li><code>/etc/hosts</code> (Linux/macOS)</li>
+                    <li><code>C:\Windows\System32\drivers\etc\hosts</code> (Windows)</li>
+                </ul>
+
+                <h3>6. Test und Zugriff</h3>
+                <p>Vaultwarden kann nun sicher über den Browser aufgerufen werden:</p>
+                <pre><code>https://10.35.0.41:8080</code></pre>
+                <ul>
+                    <li>HTTPS aktiv</li>
+                    <li>Zertifikat wird angezeigt (auch wenn selbst signiert)</li>
+                    <li>Vaultwarden ist über den Reverse Proxy erreichbar</li>
+                </ul>
+
+                <h3>7. Besonderheiten und Hinweise</h3>
+                <ul>
+                    <li>Containerstart mit Volume-Mounts für Zertifikat und nginx.conf</li>
+                    <li>Keine Firewall aktiv, Zugriff im lokalen Netz offen</li>
+                    <li>DNS-Eintrag ist zwingend – sonst funktioniert der Hostname nicht</li>
+                </ul>
+            </section>
+        </div>
+
 
 
 
