@@ -11,12 +11,12 @@
 
     <nav class="topnav">
         <ul>
-             <li><a href="index.html">Start</a></li>
-      <li><a href="woche1.html">Woche 1</a></li>
-      <li><a href="woche2.html">Woche 2</a></li>
-      <li><a href="woche3.html">Woche 3</a></li>
-      <li><a href="woche4.html">Woche 4</a></li>
-      <li><a href="woche5.html">Woche 5</a></li>
+            <li><a href="index.html">Start</a></li>
+            <li><a href="woche1.html">Woche 1</a></li>
+            <li><a href="woche2.html">Woche 2</a></li>
+            <li><a href="woche3.html">Woche 3</a></li>
+            <li><a href="woche4.html">Woche 4</a></li>
+            <li><a href="woche5.html">Woche 5</a></li>
         </ul>
     </nav>
 
@@ -679,17 +679,7 @@ Sonstiges:
                     <li>Alternativ kann die HTTPS-Warnung im Browser ignoriert werden.</li>
                 </ul>
 
-                <h3>5. DNS-Zuordnung: 10.35.0.41</h3>
-                <p>Für den Zugriff auf Vaultwarden mit dem Hostnamen <code>10.35.0.41</code> wurde ein lokaler
-                    DNS-Eintrag gesetzt:</p>
-                <pre><code>10.35.0.41</code></pre>
-                <p>Diesen Eintrag musst du auf dem Client hinzufügen – z. B. in:</p>
-                <ul>
-                    <li><code>/etc/hosts</code> (Linux/macOS)</li>
-                    <li><code>C:\Windows\System32\drivers\etc\hosts</code> (Windows)</li>
-                </ul>
-
-                <h3>6. Test und Zugriff</h3>
+                <h3>5. Test und Zugriff</h3>
                 <p>Vaultwarden kann nun sicher über den Browser aufgerufen werden:</p>
                 <pre><code>https://10.35.0.41:8080</code></pre>
                 <ul>
@@ -703,6 +693,35 @@ Sonstiges:
                     <li>Containerstart mit Volume-Mounts für Zertifikat und nginx.conf</li>
                     <li>Keine Firewall aktiv, Zugriff im lokalen Netz offen</li>
                     <li>DNS-Eintrag ist zwingend – sonst funktioniert der Hostname nicht</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Nextcloud mit Docker</h2>
+                <p>Nextcloud ist eine Self-Hosting Cloudlösung, ähnlich wie Google Drive, aber lokal betrieben.</p>
+                <h3><strong>1. Ordnerstruktur erstellen</strong></h3>
+                <ul>
+                    <li><code>sudo mkdir -p /docker/nextcloud</code></li>
+                    <li><code>sudo chown -R 1000:1000 /docker/nextcloud</code></li>
+                </ul>
+                <h3><strong>2. Docker Container starten</strong></h3>
+                <ul>
+                    <li><code>docker run -d --name nextcloud \</code></li>
+                    <li><code>-p 8443:443 \</code></li>
+                    <li><code>-v /docker/nextcloud:/var/www/html \</code></li>
+                    <li><code>nextcloud</code></li>
+                </ul>
+                <h3><strong>3. Zugriff auf Nextcloud</strong></h3>
+                <ul>
+                    <li><strong>URL:</strong> <code>https://10.35.0.41:8443</code></li>
+                    <li><strong>Benutzername:</strong> admin</li>
+                    <li><strong>Passwort:</strong> Pas$4567</li>
+                </ul>
+                <h3><strong>4. Vorteile von Nextcloud</strong></h3>
+                <ul>
+                    <li>Datenschutzfreundlich – Daten bleiben im eigenen Netzwerk</li>
+                    <li>Erweiterbar durch Apps (z. B. Kalender, Kontakte, Office)</li>
+                    <li>Zugriff per Browser, App oder Desktop-Client</li>
                 </ul>
             </section>
         </div>
