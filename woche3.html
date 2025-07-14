@@ -26,6 +26,9 @@
     <nav class="subnav-buttons">
       <ul>
         <li><a href="#" data-target="mgmt" class="active">Mgmt Groups</a></li>
+        <li><a href="#" data-target="vmsa">VM & Storage Accounts</a></li>
+        <li><a href="#" data-target="vnet">Azure Netzwerk</a></li>
+        <li><a href="#" data-target="appservice">App Services</a></li>
       </ul>
     </nav>
 
@@ -33,8 +36,8 @@
 
   <main class="apple-main">
 
-    <div id="normal" class="content-group">
-      <section id="mgmt">
+    <div id="mgmt" class="content-group">
+      <section>
         <h2>Azure-Struktur: Reihenfolge & Erklärung</h2>
 
         <h3>1. Management Groups (MG)</h3>
@@ -103,6 +106,159 @@
           Keine individuellen Rollen auf RG-Ebene sichtbar (vermutlich zentral vergeben auf Subscription).</p>
       </section>
     </div>
+    <div id="vmsa" class="content-group" style="display: none;">
+      <section>
+        <h2>Speicherkonto & VM in Azure erstellen</h2>
+
+        <h3>Grundlagen</h3>
+        <p><strong>Speicherkonto:</strong><br>
+          Ein Azure-Dienst zum Speichern von Daten wie Dateien, Backups oder Blobs.</p>
+
+        <p><strong>VM (Virtuelle Maschine):</strong><br>
+          Ein virtueller Computer in der Cloud mit wählbarem Betriebssystem, CPU, RAM.</p>
+
+        <p>Beides sind Ressourcen in Azure, die innerhalb einer <strong>Ressourcengruppe</strong> angelegt werden. Eine
+          VM kann Daten in einem Speicherkonto ablegen – z. B. für Backups oder Logdateien.</p>
+
+        <img src="./azurevm.png" alt="Azure-Hierarchie"
+          style="max-width: 600px; width: 100%; height: auto; display: block; margin: 1rem auto;" class="lazyload">
+        <h3>1. Speicherkonto erstellen</h3>
+        <ul>
+          <li>Im Abonnement auf <strong>„Ressourcen“</strong> klicken.</li>
+          <li><strong>„Speicherkonto“</strong> erstellen und eine bestehende Ressourcengruppe auswählen.</li>
+          <li>Region: <code>West Europe</code></li>
+          <li>Leistung: <code>Standard</code></li>
+          <li>Replikation: <code>LRS</code> (Local Redundant Storage) – günstig & einfach.</li>
+          <li>Auf <strong>„Überprüfen + Erstellen“</strong> klicken → dann <strong>„Erstellen“</strong>.</li>
+        </ul>
+
+        <h3>2. Virtuelle Maschine (VM) erstellen</h3>
+        <ul>
+          <li>Im Abonnement auf <strong>„Ressourcen“</strong> klicken.</li>
+          <li><strong>„Virtueller Computer“</strong> erstellen und eine bestehende Ressourcengruppe auswählen.</li>
+          <li>Region: <code>West Europe</code></li>
+          <li>Image: <code>Ubuntu 22.04 LTS</code> – kostenlos & leichtgewichtig</li>
+          <li>Grösse: <code>Standard D2s v6</code></li>
+          <li>Authentifizierung: SSH oder Passwort</li>
+          <li>Öffentliche Ports: <strong>Port 22</strong> für SSH öffnen</li>
+          <li>OS-Datenträgertyp: <code>Standard HDD</code> – günstige Option</li>
+          <li>Auf <strong>„Überprüfen + Erstellen“</strong> klicken → dann <strong>„Erstellen“</strong>.</li>
+        </ul>
+      </section>
+    </div>
+
+    <div id="vnet" class="content-group" style="display: none;">
+      <section>
+        <h2>Azure Netzwerkgrundlagen – Anleitung & Dokumentation</h2>
+
+        <h3>1. Virtuelles Netzwerk (VNet)</h3>
+        <p><strong>Was ist ein VNet?</strong><br>
+          Ein virtuelles Netzwerk (VNet) ist ein privates, logisches Netzwerk in Azure – vergleichbar mit einem lokalen
+          Netzwerk im Rechenzentrum.</p>
+        <p>Es bildet die Grundlage für die Kommunikation zwischen Azure-Ressourcen wie virtuellen Maschinen.</p>
+
+        <h3>2. Netzwerksicherheitsgruppen (NSGs)</h3>
+        <p><strong>Was ist eine NSG?</strong><br>
+          Eine Netzwerksicherheitsgruppe (NSG) ist eine Sammlung von Regeln, die den ein- und ausgehenden
+          Netzwerkverkehr für Azure-Ressourcen steuern.</p>
+        <p>Sie erlaubt z. B. gezielten Zugriff auf Ports oder das Blockieren bestimmter IP-Adressen.</p>
+
+        <h3>3. VNet-Peering</h3>
+        <p><strong>Was ist VNet-Peering?</strong><br>
+          VNet-Peering verbindet zwei virtuelle Netzwerke, sodass Ressourcen sicher miteinander kommunizieren – ohne
+          über das öffentliche Internet zu gehen.</p>
+
+        <img src="./netzwerk.png" alt="Azure-Hierarchie"
+          style="max-width: 600px; width: 100%; height: auto; display: block; margin: 1rem auto;" class="lazyload">
+
+        <h3>🔧 Schritt-für-Schritt-Anleitung</h3>
+
+        <h4>1.1 Virtuelles Netzwerk erstellen</h4>
+        <ul>
+          <li>Azure-Portal → „Virtuelle Netzwerke“ → „+ Erstellen“</li>
+          <li>Ressourcengruppe: auswählen</li>
+          <li>Name: <code>VNet-DEMO</code></li>
+          <li>Region: <code>West Europe</code></li>
+          <li>IP-Adressbereich: <code>10.0.0.0/16</code></li>
+          <li>Subnetz hinzufügen:
+            <ul>
+              <li>Name: <code>Subnet-DEMO</code></li>
+              <li>Adressbereich: <code>10.0.1.0/24</code></li>
+              <li>Network security group: auswählen</li>
+            </ul>
+          </li>
+          <li>→ „Überprüfen + Erstellen“ → „Erstellen“</li>
+        </ul>
+
+        <h4>1.2 NSG erstellen und konfigurieren</h4>
+        <ul>
+          <li>Azure-Portal → „Netzwerksicherheitsgruppen“ → „+ Erstellen“</li>
+          <li>Name: <code>NSG-DEMO</code></li>
+          <li>Ressourcengruppe & Region auswählen</li>
+          <li>→ „Erstellen“</li>
+        </ul>
+
+        <h4>1.3 NSG mit Subnetz verknüpfen</h4>
+        <ul>
+          <li>Öffne <code>NSG-DEMO</code></li>
+          <li>Reiter „Subnetze“ → „+ Subnetz zuordnen“</li>
+          <li>VNet: <code>VNet-DEMO</code>, Subnetz: <code>Subnet-DEMO</code></li>
+          <li>→ „OK“</li>
+        </ul>
+
+        <h4>1.4 Zweites VNet für Peering erstellen</h4>
+        <ul>
+          <li>Wie Schritt 1.1 – aber:</li>
+          <li>Name: <code>VNet-DEMO-2</code></li>
+          <li>IP-Adressbereich: <code>10.1.0.0/16</code></li>
+          <li>Subnetz: <code>10.1.1.0/24</code></li>
+          <li>Achte darauf: Adressbereiche dürfen sich <strong>nicht überschneiden!</strong></li>
+        </ul>
+
+        <h4>1.5 VNet-Peering einrichten</h4>
+        <ol>
+          <li><strong>In VNet-DEMO:</strong><br>
+            Öffne VNet-DEMO → Reiter „Peering“ → „+ Hinzufügen“<br>
+            Name: <code>PeeringToVNet2</code>, Ziel-VNet: <code>VNet-DEMO-2</code><br>
+            Kommunikation zulassen
+          </li>
+          <li><strong>In VNet-DEMO-2:</strong><br>
+            Wiederhole die Schritte:<br>
+            Name: <code>PeeringToVNet1</code>, Ziel-VNet: <code>VNet-DEMO</code><br>
+            Kommunikation zulassen
+          </li>
+        </ol>
+      </section>
+    </div>
+
+    <div id="appservice" class="content-group" style="display: none;">
+      <section>
+        <h2>App Services & Functions in Azure</h2>
+
+        <h3>Was ist ein App Service?</h3>
+        <p>
+          Ein <strong>App Service</strong> in Microsoft Azure ist ein Platform-as-a-Service (PaaS)-Angebot, das dir
+          ermöglicht, Webanwendungen, APIs oder mobile Backends schnell und ohne grossen Infrastrukturaufwand
+          bereitzustellen und zu betreiben.
+        </p>
+
+        <img src="./app.png" alt="Azure-Hierarchie"
+          style="max-width: 600px; width: 100%; height: auto; display: block; margin: 1rem auto;" class="lazyload">
+
+        <h3>Vorgehen zur Erstellung</h3>
+        <ul>
+          <li>Im Azure-Portal auf <strong>„Subscriptions“</strong> klicken und passende auswählen.</li>
+          <li>Dann auf <strong>„Resource Groups“</strong> gehen und eine Gruppe auswählen.</li>
+          <li>Klicke auf <strong>„+ Create resources“</strong>.</li>
+          <li>Suche nach <strong>„App Services“</strong> und wähle eine Option aus.</li>
+          <li>Gehe den Setup-Prozess durch (Name, Region, Plan etc.).</li>
+          <li>Erstelle den Service und <strong>teste die Bereitstellung</strong>.</li>
+          <li>Deploye deine App via z. B. GitHub oder lokalem Code-Upload.</li>
+        </ul>
+      </section>
+    </div>
+
+
   </main>
 
   <footer>
