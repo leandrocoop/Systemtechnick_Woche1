@@ -21,14 +21,108 @@
   </nav>
 
   <header class="apple-header">
-        <h1>Woche 3 – to be continued </h1>
-        <p class="subtitle">Systemtechnik – Woche 3</p>
-        <nav class="subnav-buttons">
-            <ul>
-                <li><a href="#" data-target="nas" class="active">to be continued</a></li>
-            </ul>
-        </nav>
+    <h1>Woche 3 – to be continued </h1>
+    <p class="subtitle">Systemtechnik – Woche 3</p>
+    <nav class="subnav-buttons">
+      <ul>
+        <li><a href="#" data-target="mgmt" class="active">Mgmt Groups,</a></li>
+      </ul>
+    </nav>
 
-    </header>
+  </header>
+
+  <main class="apple-main">
+
+    <div id="normal" class="content-group">
+      <section id="mgmt">
+        <h2>Azure-Struktur: Reihenfolge & Erklärung</h2>
+
+        <h3>1. Management Groups (MG)</h3>
+        <p><strong>Was ist das?</strong><br>
+          Oberste logische Ebene zur Strukturierung mehrerer Subscriptions.</p>
+        <p><strong>Wofür?</strong><br>
+          Ideal für grössere Organisationen. Ermöglicht z. B. zentrale Richtlinien oder IAM-Rollen.</p>
+        <p><strong>Beispiel:</strong><br>
+          Management Group <code>test</code>, darunter <code>test-sandboxes</code></p>
+
+        <h3>2. Subscriptions</h3>
+        <p><strong>Was ist das?</strong><br>
+          Eine Subscription ist eine Abrechnungseinheit in Azure. Alle Ressourcen kostenpflichtig laufen innerhalb einer
+          Subscription.</p>
+        <p><strong>Wofür?</strong><br>
+          Trennung von z. B. Produktion, Entwicklung oder Kundenumgebungen.</p>
+        <p><strong>Beispiel:</strong><br>
+          <code>test-001</code> ist eine Subscription unter <code>test-sandboxes</code>
+        </p>
+
+        <h3>3. Resource Groups (RG)</h3>
+        <p><strong>Was ist das?</strong><br>
+          Eine logische Gruppierung von Azure-Ressourcen.</p>
+        <p><strong>Wofür?</strong><br>
+          Ermöglicht gemeinsame Verwaltung, z. B. Backup, Tags, Berechtigungen.</p>
+        <p><strong>Beispiel:</strong><br>
+          <code>rg-webapp-prod</code> enthält Web App, Application Insights<br>
+          <code>rg-storage-test</code> enthält Storage Account, Key Vault
+        </p>
+
+        <h3>4. IAM / RBAC</h3>
+        <p><strong>Was ist das?</strong><br>
+          Zugriffskontrolle: Wer darf was tun und wo?</p>
+        <p><strong>Wofür?</strong><br>
+          RBAC erlaubt gezielte Rollenzuweisung (z. B. Reader, Contributor).</p>
+        <p><strong>Wo anwenden?</strong><br>
+          Auf Management Group, Subscription, RG oder einzelne Ressourcenebene.</p>
+        <p><strong>Beispiel:</strong><br>
+          Max Mustermann – Reader auf <code>test-001</code><br>
+          Gruppe <code>Dev-Team</code> – Contributor auf <code>rg-webapp-prod</code></p>
+
+        <h3>🌐 Azure-Zugriffsstruktur (Beispiel Jason)</h3>
+        <p><strong>Management Group Struktur:</strong><br>
+          Jason ist Teil des Tenants, aber hat keinen Zugriff auf die Tenant Root Group oder übergeordnete Management
+          Groups (<code>test</code>, <code>test-sandboxes</code>).<br>
+          Zugriff beginnt auf Subscription-Ebene (<code>test-001</code>).</p>
+
+        <p><strong>Subscription: <code>test-001</code></strong><br>
+          Jason hat Reader-Rolle auf der gesamten Subscription.<br>
+          Innerhalb dieser Subscription sind mehrere Resource Groups enthalten.</p>
+
+        <p><strong>Resource Groups:</strong><br>
+          Sichtbare RGs:<br>
+          <code>rg-webapp-prod</code>: Enthält Web App + Monitoring.<br>
+          <code>rg-storage-test</code>: Enthält Storage Account + Key Vault.<br>
+          Jason kann Inhalte lesen, aber nicht verändern.
+        </p>
+
+        <p><strong>IAM / RBAC:</strong><br>
+          Rollenvergabe auf Subscription-Ebene:<br>
+          Jason: <code>Reader</code><br>
+          Dev-Team: <code>Contributor</code><br>
+          Keine individuellen Rollen auf RG-Ebene sichtbar (vermutlich zentral vergeben auf Subscription).</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 – Systemtechnik Woche 1</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.subnav-buttons a').forEach(link => {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        const target = this.getAttribute('data-target');
+
+        document.querySelectorAll('.content-group').forEach(group => {
+          group.style.display = 'none';
+        });
+        document.getElementById(target).style.display = 'block';
+
+        document.querySelectorAll('.subnav-buttons a').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
 
 </body>
+
+</html>
