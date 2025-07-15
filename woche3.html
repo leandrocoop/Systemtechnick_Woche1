@@ -146,7 +146,44 @@
           <li>Auf <strong>„Überprüfen + Erstellen“</strong> klicken → dann <strong>„Erstellen“</strong>.</li>
         </ul>
       </section>
+      <section>
+        <h3>Zugriff per PuTTY auf die VM</h3>
+
+        <p>Um dich per SSH mit deiner Azure-VM zu verbinden, kannst du das Tool <strong>PuTTY</strong> verwenden. Dafür
+          brauchst du die <strong>öffentliche IP-Adresse</strong> deiner VM und dein <strong>Key-Pair (.ppk)</strong>.
+        </p>
+
+        <h4>PuTTY einrichten</h4>
+        <ul>
+          <li><strong>Host Name:</strong> Öffentliche IP der VM</li>
+          <li><strong>Port:</strong> 22</li>
+          <li><strong>Connection Type:</strong> SSH</li>
+        </ul>
+
+        <h4>Authentifizierung konfigurieren</h4>
+        <p>Gehe im linken Menü zu:</p>
+        <ul>
+          <li><code>Connection > SSH > Auth > Credentials</code></li>
+        </ul>
+        <img src="./putty.png" alt="Azure-Hierarchie" style="width: 60%; height: auto; display: block;"
+          class="lazyload">
+        <p>Klicke dort auf <strong>„Browse…“</strong> und wähle deine <strong>.ppk-Datei</strong> (Key-Pair) aus.</p>
+
+        <p>Anschliessend kannst du auf <strong>„Open“</strong> klicken und dich mit der VM verbinden.</p>
+
+        <img src="./putty12.png" alt="Azure-Hierarchie" style="width: 60%; height: auto; display: block;"
+          class="lazyload">
+
+        <h3>📡 Andere VM anpingen</h3>
+
+        <p>Wenn du mit einer VM verbunden bist und eine zweite VM (in einem anderen Netzwerk) erreichen willst, kannst
+          du diese „anpingen“, um die Verbindung zu testen:</p>
+
+        ```bash
+        ping <IP-Adresse-der-zweiten-VM>
+      </section>
     </div>
+
 
     <div id="vnet" class="content-group" style="display: none;">
       <section>
