@@ -256,6 +256,52 @@
           <li>Deploye deine App via z. B. GitHub oder lokalem Code-Upload.</li>
         </ul>
       </section>
+      <section>
+        <h3>Deployment einer statischen HTML/CSS-Webseite mit Azure Static Web Apps</h3>
+
+        <h4>Ziel</h4>
+        <p>Bereitstellung einer statischen Webseite (HTML, CSS) über Azure Static Web Apps mit automatischem Deployment
+          via GitHub.</p>
+
+        <h4>1. Voraussetzungen</h4>
+        <ul>
+          <li>Ein GitHub-Repository mit HTML/CSS-Dateien (z. B. <code>index.html</code>, <code>style.css</code>)</li>
+          <li>Ein Azure-Konto</li>
+          <li>Zugriff auf Azure Static Web App erstellen</li>
+        </ul>
+
+        <h4>2. Einrichtung in Azure</h4>
+        <ul>
+          <li><strong>Azure-Portal → "Statische Web-App" erstellen</strong></li>
+          <li>Abonnement: <code>Test</code></li>
+          <li>Ressourcengruppe: <code>TEest</code></li>
+          <li>Name: <code>Testguide</code></li>
+          <li>Hostingregion: <code>Global</code></li>
+          <li>Plan: Standard (nicht kostenlos)</li>
+          <li>Quelle: <code>GitHub</code>, dann Repository und Branch auswählen</li>
+          <img src="./ad.png" alt="Azure-Hierarchie"
+            style="max-width: 600px; width: 100%; height: auto; display: block; margin: 1rem auto;" class="lazyload">
+        </ul>
+
+        <h4>3. Automatisches Deployment via GitHub</h4>
+        <p>Azure erzeugt beim Erstellen eine Datei im Repository:</p>
+        <pre><code>.github/workflows/azure-static-web-apps-XYZ.yml</code></pre>
+        <p>Sie beschreibt den GitHub Actions Workflow für das Deployment. Änderungen am Code → neue Version wird
+          automatisch deployed.</p>
+
+        <h4>4. Ergebnis</h4>
+        <ul>
+          <li>Statische Webseite ist über eine <strong>öffentliche Azure-URL</strong> erreichbar</li>
+          <li>Ideal für reine HTML/CSS-Seiten</li>
+        </ul>
+
+        <h4>5. Kosten</h4>
+        <ul>
+          <li><strong>Standard-Plan</strong>: Kostenpflichtig – für produktive Umgebungen</li>
+          <li><strong>Free-Plan</strong>: Für Hobby- oder Testprojekte ausreichend</li>
+        </ul>
+
+      </section>
     </div>
 
 
