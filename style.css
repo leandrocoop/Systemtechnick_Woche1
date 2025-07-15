@@ -328,3 +328,24 @@ img {
   margin-left: auto;
   margin-right: auto;
 }
+
+.device-entry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.device-text {
+  flex: 1 1 50%;
+}
+
+.device-image {
+  flex: 1 1 40%;
+}
+
+.device-image img {
+  max-width: 40%;
+  border-radius: 4px;
+}
