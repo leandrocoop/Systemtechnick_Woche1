@@ -29,6 +29,7 @@
         <li><a href="#" data-target="vmsa">VM & Storage Accounts</a></li>
         <li><a href="#" data-target="vnet">Azure Netzwerk</a></li>
         <li><a href="#" data-target="appservice">App Services</a></li>
+        <li><a href="#" data-target="cleanup">Aufräumen</a></li>
         <li><a href="#" data-target="device">Geräte</a></li>
       </ul>
     </nav>
@@ -341,6 +342,48 @@
 
       </section>
     </div>
+
+    <div id="cleanup" class="content-group" style="display: none;">
+      <section>
+        <h2>Azure-Abonnement aufräumen: Ressourcen löschen</h2>
+
+        <p><strong>Wichtig vorab:</strong><br>
+          Löschen ist <strong>endgültig</strong> – sichere wichtige Daten vorher!<br>
+          Stelle sicher, dass du im <strong>richtigen Abonnement</strong> arbeitest.</p>
+
+        <h3>1. Abonnement auswählen</h3>
+        <ul>
+          <li>Gehe ins <strong>Azure-Portal</strong></li>
+          <li>Klicke oben rechts auf dein Profil → <strong>„Verzeichnis + Abonnement“</strong></li>
+          <li>Stelle sicher, dass das richtige Abonnement ausgewählt ist</li>
+        </ul>
+
+        <h3>2. Ressourcengruppen anzeigen</h3>
+        <ul>
+          <li>In der linken Navigation: <strong>„Ressourcengruppen“</strong></li>
+          <li>Liste aller vorhandenen Gruppen wird angezeigt</li>
+        </ul>
+
+        <h3>3. Ressourcengruppen einzeln löschen</h3>
+        <p>Das Löschen einer Ressourcengruppe entfernt automatisch <strong>alle Ressourcen darin</strong>!</p>
+        <ul>
+          <li>Klicke auf die gewünschte Ressourcengruppe</li>
+          <li>Oben auf <strong>„Löschen“</strong> klicken</li>
+          <li>Gib zur Bestätigung den Gruppennamen ein</li>
+          <li>Klicke auf <strong>„Löschen“</strong></li>
+        </ul>
+        <p><em>Wiederhole diesen Vorgang für jede Gruppe</em></p>
+
+        <h3>4. Prüfen ob alles weg ist</h3>
+        <ul>
+          <li>Warte ein paar Minuten</li>
+          <li>Rufe erneut <strong>„Ressourcengruppen“</strong> auf</li>
+          <li>Wenn alles korrekt gelöscht wurde, erscheint: <strong>„Keine Ergebnisse gefunden“</strong></li>
+        </ul>
+
+      </section>
+    </div>
+
 
     <div id="device" class="content-group" style="display: none;">
       <section>
